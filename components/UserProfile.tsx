@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const UserProfile = () => {
   return (
@@ -12,13 +13,11 @@ const UserProfile = () => {
       />
 
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold text-center">
-          Lucas Guilherme de Moraes
-        </h1>
-        <h3 className="text-center text-[#989898]">
-          Head development team Front-End Magazord - Tagged (#BZ)
-        </h3>
+        <h1 className="text-2xl font-bold text-center">Lucas Guilherme de Moraes</h1>
+        <h3 className="text-center text-[#989898]">Head development team Front-End Magazord - Tagged (#BZ)</h3>
       </div>
+
+      <UserLinks />
     </div>
   );
 };
@@ -26,13 +25,13 @@ const UserProfile = () => {
 const UserLinks = () => {
   return (
     <div>
-      <UserLink />
+      <UserLink href="https://www.youtube.com/watch?v=MuA2kmCkH1s" label="Youtube" />
     </div>
   );
 };
 
 const UserLink = ({ href, label }: { href: string; label: string }) => {
-  return <a href={href}>{label}</a>;
+  return <Link href={href}>{label}</Link>;
 };
 
 export default UserProfile;
