@@ -26,11 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}>
+      <body
+        className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
+      >
         <ReactQueryProvider>
           <Header />
 
-          <main className="flex flex-row justify-center py-5 px-8">{children}</main>
+          <main className="flex flex-row justify-center px-8 py-5">
+            {children}
+          </main>
         </ReactQueryProvider>
       </body>
     </html>
