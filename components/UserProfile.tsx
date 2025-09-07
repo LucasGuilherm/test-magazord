@@ -10,17 +10,24 @@ import {
   LinkIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const UserProfile = () => {
   const { userInfo, isPending, error } = useUserInfo();
   const [expandir, setExpandir] = useState(true);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setExpandir(!isMobile);
+  }, [isMobile]);
 
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="flex w-full flex-col items-center md:w-64">
+      {/* Avatar Usuário */}
       <div className="relative">
         <Image
           className="rounded-full"
@@ -34,6 +41,7 @@ const UserProfile = () => {
         </span>
       </div>
 
+      {/* Dados Usuário */}
       <div className="mt-4 flex flex-col gap-1 md:mt-6">
         <h1 className="text-center text-2xl font-bold">{userInfo.name}</h1>
         <h3 className="text-center leading-none whitespace-pre-line text-[#989898]">
@@ -41,6 +49,7 @@ const UserProfile = () => {
         </h3>
       </div>
 
+      {/* Informações adicionais */}
       <div
         className={`text-link hover:text-link-hover mt-6 mb-2 flex flex-col items-center md:hidden`}
         onClick={() => setExpandir(!expandir)}
