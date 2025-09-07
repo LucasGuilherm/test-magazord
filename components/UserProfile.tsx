@@ -42,7 +42,7 @@ const UserProfile = () => {
       </div>
 
       <div
-        className={`mt-6 mb-2 flex flex-col items-center text-[#0587FF] hover:text-[#0058A9] md:hidden`}
+        className={`text-link hover:text-link-hover mt-6 mb-2 flex flex-col items-center md:hidden`}
         onClick={() => setExpandir(!expandir)}
       >
         <span>Informações adicionais</span>
@@ -87,7 +87,7 @@ type UserInfoProps = {
 
 const UserInfo = ({ label, Icon }: UserInfoProps) => {
   return (
-    <div className="flex w-full items-center gap-2 text-[#0587FF] hover:text-[#0058A9]">
+    <div className="text-link hover:text-link-hover flex w-full items-center gap-2">
       <Icon className="h-4 w-4" />
       <Link className="w-0 flex-1 break-words" href={label} target="_blank">
         {label}

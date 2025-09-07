@@ -3,14 +3,11 @@
 import ButtonSelect from "@/components/ButtonSelect";
 import TabNavigation from "@/components/TabNavigation";
 import UserProfile from "@/components/UserProfile";
-import {
-  BookmarkIcon,
-  BookmarkSquareIcon,
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-  StarIcon,
-} from "@heroicons/react/24/outline";
-import { FC, useState } from "react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+
+const opcoesType = ["All", "Sources", "Forks", "Archived", "Mirrors"];
+const opcoesLanguage = ["All", "Java", "TypeScript", "HTML", "CSS"];
 
 export default function Home() {
   const [tabSelected, setTabSelected] = useState(0);
@@ -35,13 +32,13 @@ export default function Home() {
           <div className="flex gap-4">
             <ButtonSelect
               onChange={(values) => console.log(values)}
-              options={["Lucas", "Bruna"]}
+              options={opcoesType}
             >
               Type
             </ButtonSelect>
             <ButtonSelect
               onChange={(values) => console.log(values)}
-              options={["Lucas", "Bruna"]}
+              options={opcoesLanguage}
             >
               Language
             </ButtonSelect>

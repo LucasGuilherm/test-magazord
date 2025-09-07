@@ -27,7 +27,7 @@ const ButtonSelect = ({ children, options, onChange }: ButtonSelectProps) => {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex cursor-pointer items-center gap-2 rounded-full bg-gradient-to-r from-[#0056A6] to-[#0587FF] px-2 py-1 pr-4 text-white"
+        className="to-link flex cursor-pointer items-center gap-2 rounded-full bg-gradient-to-r from-[#0056A6] px-2 py-1 pr-4 text-white"
       >
         <ChevronDownIcon
           className={`size-5 transition-transform ${open ? "rotate-180" : ""}`}
@@ -49,7 +49,7 @@ const ButtonSelect = ({ children, options, onChange }: ButtonSelectProps) => {
             return (
               <li
                 key={index}
-                className={`${selected ? "text-[#0587FF]" : ""} flex cursor-pointer items-center gap-4 px-4 py-2 hover:bg-[#dbdfe5]`}
+                className={`${selected ? "text-link" : ""} flex cursor-pointer items-center gap-4 px-4 py-2 hover:bg-[#dbdfe5]`}
                 onClick={() => handleChange(option)}
               >
                 <input

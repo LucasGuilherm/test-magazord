@@ -10,6 +10,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-roboto-sans);
   --font-mono: var(--font-roboto-mono);
+  --color-link: #0587ff;
+  --color-link-hover: #0058a9;
 }
 
 @media (prefers-color-scheme: light) {
