@@ -2,6 +2,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import ButtonSelect from "./ButtonSelect";
+import useFilterStore from "@/store/filterStore";
 
 const opcoesType = ["All", "Sources", "Forks", "Archived", "Mirrors"];
 const opcoesLanguage = ["All", "Java", "TypeScript", "HTML", "CSS"];
@@ -9,6 +10,10 @@ const opcoesLanguage = ["All", "Java", "TypeScript", "HTML", "CSS"];
 const FilterBar = () => {
   const isMobile = useIsMobile();
   const [showInput, setShowInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const setSearch = useFilterStore((state) => state.setSearch);
+  const setType = useFilterStore((state) => state.setType);
+  const setLanguage = useFilterStore((state) => state.setLanguage);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -22,13 +27,9 @@ const FilterBar = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
-    console.log(Object.fromEntries(formData));
+    setSearch(inputValue);
   };
 
-  const [inputValue, setInputValue] = useState("");
   const mostrarInput = !isMobile || showInput;
 
   return (
@@ -55,16 +56,10 @@ const FilterBar = () => {
       {!showInput && (
         <div className="flex items-center justify-between">
           <div className="flex gap-4">
-            <ButtonSelect
-              onChange={(values) => console.log(values)}
-              options={opcoesType}
-            >
+            <ButtonSelect onChange={setType} options={opcoesType}>
               Type
             </ButtonSelect>
-            <ButtonSelect
-              onChange={(values) => console.log(values)}
-              options={opcoesLanguage}
-            >
+            <ButtonSelect onChange={setLanguage} options={opcoesLanguage}>
               Language
             </ButtonSelect>
           </div>
