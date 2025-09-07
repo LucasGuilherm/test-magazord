@@ -1,37 +1,99 @@
+"use client";
+
+import useUserInfo from "@/hooks/githubApi/useUserInfo";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  BuildingOfficeIcon,
+  CameraIcon,
+  ChevronDownIcon,
+  LinkIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
+import { FC, useState } from "react";
 
 const UserProfile = () => {
-  return (
-    <div className="flex flex-col gap-6 items-center w-64">
-      <Image
-        className="rounded-full"
-        width={150}
-        height={150}
-        src={"https://github.com/LucasGuilherm.png"}
-        alt="Profile Picture"
-      />
+  const { userInfo, isPending, error } = useUserInfo();
+  const [expandir, setExpandir] = useState(true);
 
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold text-center">Lucas Guilherme de Moraes</h1>
-        <h3 className="text-center text-[#989898]">Head development team Front-End Magazord - Tagged (#BZ)</h3>
+  if (isPending) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className="flex w-full flex-col items-center md:w-64">
+      <div className="relative">
+        <Image
+          className="rounded-full"
+          width={150}
+          height={150}
+          src={userInfo.avatar_url}
+          alt="Profile Picture"
+        />
+        <span className="absolute right-0 bottom-0 rounded-full bg-white p-2 shadow">
+          😎
+        </span>
       </div>
 
-      <UserLinks />
+      <div className="mt-4 flex flex-col gap-1 md:mt-6">
+        <h1 className="text-center text-2xl font-bold">{userInfo.name}</h1>
+        <h3 className="text-center leading-none whitespace-pre-line text-[#989898]">
+          {userInfo.bio}
+        </h3>
+      </div>
+
+      <div
+        className={`mt-6 mb-2 flex flex-col items-center text-[#0587FF] hover:text-[#0058A9] md:hidden`}
+        onClick={() => setExpandir(!expandir)}
+      >
+        <span>Informações adicionais</span>
+
+        <ChevronDownIcon
+          className={`size-6 transition-all ${expandir ? "rotate-180" : "rotate-0"}`}
+        />
+      </div>
+
+      {expandir && (
+        <div
+          className={`flex w-full flex-col gap-4 rounded-2xl bg-[#f8f8f8] p-4 text-sm font-normal md:mt-8 md:bg-transparent md:p-0`}
+        >
+          {userInfo.company && (
+            <UserInfo Icon={BuildingOfficeIcon} label={userInfo.company} />
+          )}
+          {userInfo.location && (
+            <UserInfo Icon={MapPinIcon} label={userInfo.location} />
+          )}
+          {userInfo.blog && <UserInfo Icon={LinkIcon} label={userInfo.blog} />}
+
+          {/* Lista Links Sociais */}
+          {userInfo.social_accounts?.map((link, index) => (
+            <UserInfo
+              key={index}
+              label={link.url}
+              Icon={
+                link.provider === "instagram" ? CameraIcon : BuildingOfficeIcon
+              }
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
-const UserLinks = () => {
+type UserInfoProps = {
+  label: string;
+  Icon: FC<React.SVGProps<SVGSVGElement>>;
+};
+
+const UserInfo = ({ label, Icon }: UserInfoProps) => {
   return (
-    <div>
-      <UserLink href="https://www.youtube.com/watch?v=MuA2kmCkH1s" label="Youtube" />
+    <div className="flex w-full items-center gap-2 text-[#0587FF] hover:text-[#0058A9]">
+      <Icon className="h-4 w-4" />
+      <Link className="w-0 flex-1 break-words" href={label} target="_blank">
+        {label}
+      </Link>
     </div>
   );
-};
-
-const UserLink = ({ href, label }: { href: string; label: string }) => {
-  return <Link href={href}>{label}</Link>;
 };
 
 export default UserProfile;
