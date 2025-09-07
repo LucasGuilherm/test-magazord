@@ -10,14 +10,12 @@ const opcoesType = ["All", "Sources", "Forks", "Archived", "Mirrors"];
 const opcoesLanguage = ["All", "Java", "TypeScript", "HTML", "CSS"];
 
 export default function Home() {
-  const [tabSelected, setTabSelected] = useState(0);
-
   return (
     <div className="flex max-w-5xl flex-1 flex-col items-center gap-16 md:flex-row md:items-start">
       <UserProfile />
 
       <div className="flex flex-1 flex-col gap-12">
-        <TabNavigation selected={tabSelected} setSelected={setTabSelected} />
+        <TabNavigation />
 
         <div className="flex justify-between gap-16">
           <div className="flex w-full items-center border-b border-gray-300">

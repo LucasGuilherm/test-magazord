@@ -1,12 +1,11 @@
+import { useNavigationStore } from "@/store/navigationTabStore";
 import { BookmarkSquareIcon, StarIcon } from "@heroicons/react/24/outline";
 import React, { FC } from "react";
 
-type TabNavigationProps = {
-  selected: number;
-  setSelected: (index: number) => void;
-};
+const TabNavigation = () => {
+  const selected = useNavigationStore((state) => state.tabSelected);
+  const setSelected = useNavigationStore((state) => state.setTabSelected);
 
-const TabNavigation = ({ selected, setSelected }: TabNavigationProps) => {
   return (
     <div className="flex gap-11">
       <TabItem
