@@ -1,26 +1,29 @@
 import { useNavigationStore } from "@/store/navigationTabStore";
+import useRepoCountStore from "@/store/repoCountStore";
 import { BookmarkSquareIcon, StarIcon } from "@heroicons/react/24/outline";
 import React, { FC } from "react";
 
 const TabNavigation = () => {
   const selected = useNavigationStore((state) => state.tabSelected);
   const setSelected = useNavigationStore((state) => state.setTabSelected);
+  const repoCount = useRepoCountStore((state) => state.repo);
+  const starredCount = useRepoCountStore((state) => state.starred);
 
   return (
-    <div className="flex gap-11">
+    <div className="flex justify-evenly gap-11 md:justify-start">
       <TabItem
         onClick={() => setSelected(0)}
         selected={selected === 0}
         Icon={BookmarkSquareIcon}
         title="Repositories"
-        number={32}
+        number={repoCount}
       />
       <TabItem
         onClick={() => setSelected(1)}
         selected={selected === 1}
         Icon={StarIcon}
         title="Starred"
-        number={32}
+        number={starredCount}
       />
     </div>
   );

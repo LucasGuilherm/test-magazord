@@ -32,7 +32,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <Header />
 
-          <main className="flex flex-row justify-center px-8 py-5">
+          <main className="flex flex-row justify-center px-6 py-5 md:px-8">
             {children}
           </main>
         </ReactQueryProvider>

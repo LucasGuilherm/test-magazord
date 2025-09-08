@@ -12,3 +12,14 @@ export type GitHubSocialAccount = {
   provider: string;
   url: string;
 };
+
+export type GitHubRepo = {
+  id: number;
+  full_name: string;
+  description: string | null;
+  stargazers_count: number;
+  forks: number;
+  language: string;
+  fork: boolean;
+  archived: boolean;
+};
