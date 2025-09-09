@@ -15,6 +15,7 @@ export type GitHubSocialAccount = {
 
 export type GitHubRepo = {
   id: number;
+  name: string;
   full_name: string;
   description: string | null;
   stargazers_count: number;
@@ -22,4 +23,15 @@ export type GitHubRepo = {
   language: string;
   fork: boolean;
   archived: boolean;
+  open_issues: number;
+};
+
+export type GitHubIssue = {
+  id: number;
+  title: string;
+  body: string;
+  state: "open" | "closed";
+  user: {
+    login: string;
+  };
 };

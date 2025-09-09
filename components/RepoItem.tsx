@@ -1,6 +1,7 @@
 import { GitHubRepo } from "@/types/github";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { GitFork } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 type repoItemProps = {
@@ -11,30 +12,32 @@ const RepoItem = ({ repoData }: repoItemProps) => {
   const [mainNome, nomeProjeto] = repoData.full_name.split("/");
 
   return (
-    <div className="flex cursor-pointer flex-col gap-4 py-6 transition-all hover:shadow-xl md:px-8">
-      <h1 className="text-lg font-light">
-        {mainNome} /{" "}
-        <span className="text-link font-semibold">{nomeProjeto}</span>
-      </h1>
+    <Link href={`/${repoData.name}`}>
+      <div className="flex cursor-pointer flex-col gap-4 py-6 transition-all hover:shadow-xl md:px-8">
+        <h1 className="text-lg font-light">
+          {mainNome} /{" "}
+          <span className="text-link font-semibold">{nomeProjeto}</span>
+        </h1>
 
-      {repoData.description && (
-        <p className="text-sm text-gray-500">{repoData.description}</p>
-      )}
+        {repoData.description && (
+          <p className="text-sm text-gray-500">{repoData.description}</p>
+        )}
 
-      <div className="flex items-center gap-11">
-        {/* {!!repoData.language && <span>{repoData.language}</span>} */}
+        <div className="flex items-center gap-11">
+          {/* {!!repoData.language && <span>{repoData.language}</span>} */}
 
-        <div className="flex gap-2">
-          <StarIcon className="size-6" />
-          <span>{repoData.stargazers_count}</span>
-        </div>
+          <div className="flex gap-2">
+            <StarIcon className="size-6" />
+            <span>{repoData.stargazers_count}</span>
+          </div>
 
-        <div className="flex gap-2">
-          <GitFork className="size-6" />
-          <span>{repoData.forks}</span>
+          <div className="flex gap-2">
+            <GitFork className="size-6" />
+            <span>{repoData.forks}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
