@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto Avaliação Magazord
 
-## Getting Started
+Esse é um projeto para o teste Magazord
 
-First, run the development server:
+## Instalação
+
+Etapas para instalação do projeto
+
+```bash
+# Clonar projeto
+git clone https://github.com/LucasGuilherm/test-magazord.git
+
+cd test-magazord
+
+# Instalar dependencias
+npm install
+```
+
+## Variáveis de ambiente
+
+Criar um arquivo **.env** com as seguintes variáveis:
+
+```env
+NEXT_PUBLIC_GITHUB_API=https://api.github.com/
+NEXT_PUBLIC_GITHUB_USER=facebook
+```
+
+⚠️ Substitua **NEXT_PUBLIC_GITHUB_USER** pelo nome/slug do usuário do GitHub que deseja consultar.
+
+## Iniciando projeto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto estará disponível em `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tecnologias usadas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Lista de pricipais tecnologias usadas no projeto:
 
-## Learn More
+- [Next.js](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Zustand](https://zustand.docs.pmnd.rs/getting-started/introduction)
+- [TanStack Query](https://tanstack.com/query/latest)
+- [Typescript](https://www.typescriptlang.org/)
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura de pastas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+test-magazord
+├── node_modules/               # Dependências do projeto
+├── public/                     # Arquivos estáticos (imagens, ícones, fontes)
+│   └── LogoGitHub.svg
+├── app/                        # Rotas Next
+│   ├── layout.tsx              # Layout raiz
+│   ├── page.tsx                # Página inicial (repositórios)
+│   └── [repoId]/               # Rota de detalhe do repositório
+│       └── page.tsx
+├── components/                 # Componentes globais
+│   └── ButtonSelect.tsx
+├── hooks/                      # Hooks customizados (api github com useQuery)
+│   └── useIsMobile.ts
+├── lib/                        # Funções utilitárias
+│   └── fetchGitHub.ts
+├── providers/                  # Providers globais
+│   └── QueryClientProvider.tsx
+├── stores/                     # Zustand
+│   └── filterStore.ts
+├── types/                      # Definições TypeScript
+│   └── github.d.ts
+├── .env                        # Variáveis de ambiente
+├── .gitignore
+├── next.config.js              # Configuração do Next.js
+├── package.json
+├── tsconfig.json               # Configuração do TypeScript
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API GitHub / QueryClient
 
-## Deploy on Vercel
+Para organizar as requisições à API do GitHub, foi criado o fetcher `fetchGitHub.ts`.
+Esse fetcher é utilizado dentro de hooks customizados (`hooks/githubApi/\*`) e funciona em conjunto com **TanStack Query** para controlar requisições assíncronas.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Exemplo de hook:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```typescript
+const useGetRepo = (repoName: GitHubRepo["name"]) => {
+  return useQuery<GitHubRepo, Error>({
+    queryKey: ["repo", repoName],
+    queryFn: () =>
+      fetchGitHub(`repos/${process.env.NEXT_PUBLIC_GITHUB_USER}/${repoName}`),
+  });
+};
+```
+
+## Desafios
+
+- Um dos principais desafios que tive no início foi definir como implementar a responsividade da página. Após implementar o sistema de breakpoints do Tailwind, esse processo ficou mais fácil.
+
+- Outro desafio que tive foi entender o que exatamente precisava ser buscado da API do GitHub; apenas olhando o projeto no Figma, isso não fica muito claro. Acredito que uma tarefa explicando com mais detalhes os requisitos do projeto tornaria o processo mais fácil.
+
+## Melhorias / Alterações
+
+- Uma das melhorias a serem feitas para aumentar a usabilidade da página é sincronizar os filtros do projeto nos queryParams da URL. Isso permite salvar o estado da página mesmo depois de atualizar a tela e também possibilita compartilhar links já com os filtros aplicados. Isso é extremamente útil, principalmente se a quantidade de opções de filtros aumentar no futuro.
+
+- Se o SEO for uma preocupação para esse projeto seria interessante restruturar os compoentes e paginas para serem Server Componentes do Nextjs.
