@@ -31,8 +31,8 @@ const UserProfile = () => {
       <div className="relative">
         <Image
           className="rounded-full"
-          width={150}
-          height={150}
+          width={isMobile ? 104 : 150}
+          height={isMobile ? 104 : 150}
           src={userInfo.avatar_url}
           alt="Profile Picture"
         />
