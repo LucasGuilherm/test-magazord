@@ -4,7 +4,7 @@ Esse é um projeto para o teste Magazord
 
 ## Link Demonstração
 
-[test-magazord-beta.vercel.app](test-magazord-beta.vercel.app)
+[test-magazord-beta.vercel.app](https://test-magazord-beta.vercel.app)
 
 ## Instalação
 
