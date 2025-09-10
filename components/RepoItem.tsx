@@ -1,3 +1,4 @@
+import { useNavigationStore } from "@/store/navigationTabStore";
 import { GitHubRepo } from "@/types/github";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { GitFork } from "lucide-react";
@@ -9,6 +10,7 @@ type repoItemProps = {
 };
 
 const RepoItem = ({ repoData }: repoItemProps) => {
+  const tabSelected = useNavigationStore((state) => state.tabSelected);
   const [mainNome, nomeProjeto] = repoData.full_name.split("/");
 
   return (
@@ -24,12 +26,14 @@ const RepoItem = ({ repoData }: repoItemProps) => {
         )}
 
         <div className="flex items-center gap-11">
-          {/* {!!repoData.language && <span>{repoData.language}</span>} */}
-
-          <div className="flex gap-2">
-            <StarIcon className="size-6" />
-            <span>{repoData.stargazers_count}</span>
-          </div>
+          {!!tabSelected && !!repoData.language ? (
+            <span>{repoData.language}</span>
+          ) : (
+            <div className="flex gap-2">
+              <StarIcon className="size-6" />
+              <span>{repoData.stargazers_count}</span>
+            </div>
+          )}
 
           <div className="flex gap-2">
             <GitFork className="size-6" />
