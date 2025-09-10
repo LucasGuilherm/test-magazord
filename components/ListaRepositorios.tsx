@@ -34,6 +34,10 @@ const ListaRepositorios = () => {
       {listaFiltrada?.map((repo) => {
         return <RepoItem repoData={repo} key={repo.id} />;
       })}
+
+      {!listaFiltrada?.length && (
+        <span className="text-zinc-400">Nenhum repositório</span>
+      )}
     </div>
   );
 };
