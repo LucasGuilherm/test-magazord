@@ -24,6 +24,7 @@ export type GitHubRepo = {
   fork: boolean;
   archived: boolean;
   open_issues: number;
+  mirror_url: string | null;
 };
 
 export type GitHubIssue = {
