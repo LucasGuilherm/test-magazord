@@ -18,7 +18,7 @@ const Repositorio = () => {
   const [mainNome, nomeProjeto] = data.full_name.split("/");
 
   return (
-    <div className="flex w-full flex-col gap-8 md:max-w-5xl">
+    <>
       <button onClick={() => router.back()} className="flex cursor-pointer">
         <ChevronLeft className="mr-2" />
         Voltar
@@ -29,8 +29,11 @@ const Repositorio = () => {
         <span className="text-link font-medium">{nomeProjeto}</span>
       </h1>
 
-      <p className="text-zinc-700">{data.description}</p>
+      <p className={data.description ? "text-gray-600" : "text-gray-400"}>
+        {data.description || "Nenhuma descrição"}
+      </p>
 
+      {/* Contadores (Forks, Stars, Issues) */}
       <div className="flex flex-wrap justify-between md:justify-start md:gap-12">
         <CounterDetail label="Forks" value={data.forks} />
 
@@ -40,7 +43,7 @@ const Repositorio = () => {
       </div>
 
       <IssuesList repoName={repoId} />
-    </div>
+    </>
   );
 };
 
