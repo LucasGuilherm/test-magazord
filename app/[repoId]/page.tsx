@@ -3,7 +3,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import useGetRepo from "@/hooks/githubApi/useGetRepo";
 import useListIssues from "@/hooks/githubApi/useListIssues";
-import { ChevronLeft, GitFork } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 const Repositorio = () => {
@@ -11,6 +11,7 @@ const Repositorio = () => {
   const { data, isPending, isError, error } = useGetRepo(repoId);
   const router = useRouter();
 
+  // TODO: Melhorar indicação de carregamento e erro
   if (isPending) return <div>Carregando...</div>;
   if (isError) return <div>{error.message}</div>;
 

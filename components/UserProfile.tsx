@@ -18,10 +18,12 @@ const UserProfile = () => {
   const [expandir, setExpandir] = useState(true);
   const isMobile = useIsMobile();
 
+  // Oculta informações adicionais se mobile
   useEffect(() => {
     setExpandir(!isMobile);
   }, [isMobile]);
 
+  // TODO: Melhorar indicação de carregamento e erro
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -73,7 +75,7 @@ const UserProfile = () => {
           )}
           {userInfo.blog && <UserInfo Icon={LinkIcon} label={userInfo.blog} />}
 
-          {/* Lista Links Sociais */}
+          {/* Lista Links Sociais com ícone */}
           {userInfo.social_accounts?.map((link, index) => (
             <UserInfo
               key={index}

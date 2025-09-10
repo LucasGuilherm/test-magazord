@@ -17,10 +17,7 @@ const FilterBar = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onSearchClick = () => {
-    setShowInput(true);
-  };
-
+  // Bota o foto automático no input de pesquisa
   useEffect(() => {
     if (showInput) inputRef.current?.focus();
   }, [showInput]);
@@ -65,7 +62,10 @@ const FilterBar = () => {
           </div>
 
           {isMobile && (
-            <MagnifyingGlassIcon onClick={onSearchClick} className="size-6" />
+            <MagnifyingGlassIcon
+              onClick={() => setShowInput(true)}
+              className="size-6"
+            />
           )}
         </div>
       )}

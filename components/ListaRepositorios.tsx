@@ -13,7 +13,7 @@ const ListaRepositorios = () => {
 
   const { data, isPending, isError, error } = useListRepo();
 
-  // Aplica filtro
+  // Aplica filtro e meoiza o resultado para prevenir re-render desnecessários
   const listaFiltrada = useMemo(() => {
     if (data) {
       return filterRepo({
@@ -25,6 +25,7 @@ const ListaRepositorios = () => {
     }
   }, [tabSelected, languagesStore, typesStore, searchStore, data]);
 
+  // TODO: Melhorar indicação de carregamento e erro
   if (isPending) return <div>Carregando...</div>;
   if (isError) return <div>{error.message}</div>;
 
