@@ -1,24 +1,21 @@
 import fetchGitHub from "@/lib/fetchGitHub";
+import { useNavigationStore } from "@/store/navigationTabStore";
 import useRepoCountStore from "@/store/repoCountStore";
 import { GitHubRepo } from "@/types/github";
 import { useQuery } from "@tanstack/react-query";
 
 const useListRepo = () => {
   const setCount = useRepoCountStore((state) => state.setCount);
+  const tabSelected = useNavigationStore((state) => state.tabSelected);
 
   return useQuery<GitHubRepo[], Error>({
-    queryKey: ["repositorios"],
+    queryKey: ["repositorios", tabSelected],
     queryFn: async () => {
       const res: GitHubRepo[] = await fetchGitHub(
-        `users/${process.env.NEXT_PUBLIC_GITHUB_USER}/repos`,
+        `users/${process.env.NEXT_PUBLIC_GITHUB_USER}/${tabSelected ? "starred" : "repos"}`,
       );
 
-      const starredCount = res.reduce((acc, item) => {
-        return item.stargazers_count ? acc + 1 : acc;
-      }, 0);
-
-      setCount({ tipo: "starred", count: starredCount });
-      setCount({ tipo: "repo", count: res.length - starredCount });
+      setCount({ tipo: tabSelected ? "starred" : "repo", count: res.length });
 
       return res;
     },

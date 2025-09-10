@@ -26,8 +26,8 @@ const RepoItem = ({ repoData }: repoItemProps) => {
         )}
 
         <div className="flex items-center gap-11">
-          {!!tabSelected && !!repoData.language ? (
-            <span>{repoData.language}</span>
+          {!!tabSelected ? (
+            <span>{repoData.language || "Nenhuma linguagem"}</span>
           ) : (
             <div className="flex gap-2">
               <StarIcon className="size-6" />
